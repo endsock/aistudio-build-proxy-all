@@ -476,44 +476,46 @@ func writeBody(w http.ResponseWriter, payload map[string]interface{}) {
 
 // validateJWT 模拟JWT验证并返回userID
 func validateJWT(token string) (string, error) {
-	if token == "" {
-		return "", errors.New("missing auth_token")
-	}
-	// 实际应用中，这里需要使用JWT库（如golang-jwt/jwt）来验证签名和过期时间
-	// 这里我们简单地将token当作userID
-	if token == "valid-token-user-1" {
-		return "user-1", nil
-	}
-	//if token == "valid-token-user-2" {
-	//	return "user-2", nil
-	//}
-	return "", errors.New("invalid token")
+	return "user-1", nil
+	// if token == "" {
+	// 	return "", errors.New("missing auth_token")
+	// }
+	// // 实际应用中，这里需要使用JWT库（如golang-jwt/jwt）来验证签名和过期时间
+	// // 这里我们简单地将token当作userID
+	// if token == "valid-token-user-1" {
+	// 	return "user-1", nil
+	// }
+	// //if token == "valid-token-user-2" {
+	// //	return "user-2", nil
+	// //}
+	// return "", errors.New("invalid token")
 }
 
 // authenticateHTTPRequest 模拟HTTP代理请求的认证
 func authenticateHTTPRequest(r *http.Request) (string, error) {
-	// 实际应用中，可能检查Authorization头或其他API Key
-	apiKey := r.Header.Get("x-goog-api-key")
-	if apiKey == "" {
-		// r.URL.Query() 会解析URL中的查询参数，返回一个 map[string][]string
-		// .Get() 方法可以方便地获取指定参数的第一个值，如果参数不存在则返回空字符串
-		apiKey = r.URL.Query().Get("key")
-	}
+	return "user-1", nil
+	// // 实际应用中，可能检查Authorization头或其他API Key
+	// apiKey := r.Header.Get("x-goog-api-key")
+	// if apiKey == "" {
+	// 	// r.URL.Query() 会解析URL中的查询参数，返回一个 map[string][]string
+	// 	// .Get() 方法可以方便地获取指定参数的第一个值，如果参数不存在则返回空字符串
+	// 	apiKey = r.URL.Query().Get("key")
+	// }
 
-	// 从环境变量中获取预期的API密钥
-	expectedAPIKey := os.Getenv("AUTH_API_KEY")
-	if expectedAPIKey == "" {
-		log.Println("CRITICAL: AUTH_API_KEY environment variable not set.")
-		// 在生产环境中，您可能希望完全阻止请求
-		return "", errors.New("server configuration error")
-	}
+	// // 从环境变量中获取预期的API密钥
+	// expectedAPIKey := os.Getenv("AUTH_API_KEY")
+	// if expectedAPIKey == "" {
+	// 	log.Println("CRITICAL: AUTH_API_KEY environment variable not set.")
+	// 	// 在生产环境中，您可能希望完全阻止请求
+	// 	return "", errors.New("server configuration error")
+	// }
 
-	if apiKey == expectedAPIKey {
-		// 单租户
-		return "user-1", nil
-	}
+	// if apiKey == expectedAPIKey {
+	// 	// 单租户
+	// 	return "user-1", nil
+	// }
 
-	return "", errors.New("invalid API key")
+	// return "", errors.New("invalid API key")
 }
 
 // --- 主函数 ---
