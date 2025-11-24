@@ -348,6 +348,7 @@ func processWebSocketResponse(w http.ResponseWriter, r *http.Request, respChan c
 					log.Println("Received http_response after headers were already set. Ignoring.")
 					return
 				}
+				w.Header().Set("Content-Type", "application/json")
 				setResponseHeaders(w, msg.Payload)
 				writeStatusCode(w, msg.Payload)
 				writeBody(w, msg.Payload)
