@@ -7,14 +7,14 @@ def handle_untrusted_dialog(page: Page, logger=None):
     检查并处理 "Last modified by..." 的弹窗。
     如果弹窗出现，则点击 "OK" 按钮。
     """
-    ok_button_locator = page.get_by_role("button", name="OK")
+    ok_button_locator = page.get_by_role("button", name="Got it")
 
     try:
         if ok_button_locator.is_visible(timeout=10000): # 等待最多10秒
-            logger.info(f"检测到弹窗，正在点击 'OK' 按钮...")
+            logger.info(f"检测到弹窗，正在点击 ' Got it ' 按钮...")
             
             ok_button_locator.click(force=True)
-            logger.info(f"'OK' 按钮已点击。")
+            logger.info(f"' Got it ' 按钮已点击。")
             expect(ok_button_locator).to_be_hidden(timeout=1000)
             logger.info(f"弹窗已确认关闭。")
         else:
